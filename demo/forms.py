@@ -15,25 +15,25 @@ class ModalForm(FormMixin, BSModalForm):
     ]
 
     title = fields.CharField(
-        label="Title (works)",
+        label="Title",
         widget=widgets.TextInput(attrs={
             'class': 'form-control',
         }),
     )
 
     transportation_multiple = fields.MultipleChoiceField(
-        label="Transportation Multiple (works)",
+        label="Transportation Multiple",
         choices=TRANSPORTATION_CHOICES,
         help_text="Available means of tranportation.",
     )
 
     publish_date = fields.DateField(
-        label="Calendar (NOT works)",
+        label="Calendar",
         widget=DatePicker,
     )
 
     transportation_dual = fields.MultipleChoiceField(
-        label="Transportation Dual (NOT works)",
+        label="Transportation Dual",
         choices=TRANSPORTATION_CHOICES,
         widget=DualSelector(),
     )

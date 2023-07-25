@@ -1,4 +1,7 @@
 {% load static %}
+<script type="module" src="{% static 'formset/js/django-formset.js' %}"></script>
+{% load render_form from formsetify %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,28 +31,13 @@
 <body class="p-3">
 
 <h1>Hello world!</h1>
-<p>
-    <button id="modal_button" class="btn btn-outline-dark btn-sm" type="button" name="button">Open Modal</button>
-</p>
-<p>
-    <a href="{% url 'page_form' %}">Page Form</a>
-</p>
-<!-- Modal HTML -->
-<div class="modal fade" role="dialog" id="modal">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content"></div>
-    </div>
-</div>
+<django-formset endpoint="{{ request.path }}" csrf-token="{{ csrf_token }}">
+        {% render_form form "bootstrap" field_classes="mb-2" form_classes="rounded-xl" %}
+        <button type="button" df-click="submit -> proceed">Submit</button>
+</django-formset>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#modal_button").modalForm({
-            formURL: "{% url 'modal_form' %}",
-            errorClass: ".is-invalid",
-            modalID: "#modal",
-        });
-    });
-</script>
+<a href="{% url 'index' %}">Back</a>
+
 {{ form.media.js }}
 
 </body>
