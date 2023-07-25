@@ -5,22 +5,11 @@ from pathlib import Path
 from decouple import config
 from django.contrib.messages import constants as messages
 
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-from sentry_sdk.integrations.redis import RedisIntegration
-
-# sentry_sdk.init(
-#     dsn=config('SENTRY_DSN', ''),
-#     integrations=[DjangoIntegration(), RedisIntegration()],
-#     traces_sample_rate=0.50,
-#     send_default_pii=True,
-#     environment=config('SENTRY_ENV', 'dev')
-# )
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='example_secret_key')
-DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = ['localhost', '0.0.0.0', config('DOMAIN', default='localhost')]
+DEBUG = True
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('DOMAIN', default='localhost')]
 
 CSRF_TRUSTED_ORIGINS = []
 for hostname in ALLOWED_HOSTS:
@@ -35,6 +24,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'bootstrap_modal_forms',
+    'formset',
+
+    'demo',
 ]
 
 MIDDLEWARE = [

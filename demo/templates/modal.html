@@ -1,0 +1,31 @@
+{% load static %}
+{{ form.media.css }}
+<script type="module" src="{% static 'formset/js/django-formset.js' %}"></script>
+{% load render_form from formsetify %}
+
+
+<div class="modal-header">
+    <h5 class="modal-title">Modal Form</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+
+    <django-formset endpoint="{{ request.path }}" csrf-token="{{ csrf_token }}">
+        {% render_form form "bootstrap" field_classes="mb-2" form_classes="rounded-xl" %}
+        <button type="button" df-click="submit -> proceed">Submit</button>
+    </django-formset>
+
+</div>
+
+<div class="modal-footer">
+
+
+    <button type="button" data-bs-dismiss="modal"
+            class="btn {{ metacontext.cancel_button_class|default:'btn-gray-200' }}">
+        Close
+    </button>
+</div>
+
+{{ form.media.js }}
+
